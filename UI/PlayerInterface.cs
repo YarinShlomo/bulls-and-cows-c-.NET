@@ -8,7 +8,7 @@ namespace PlayerInterface
 {
     public class PlayerInterface
     {
-        private static Board m_Board;
+        //private static Board m_Board;
         private static GamePlay m_GamePlay;
         private static int m_TurnNumber;
         private static int m_MaxAmountOfTurns;
@@ -21,10 +21,11 @@ namespace PlayerInterface
         public static void RunGame()
         {
             StringBuilder userPickedLetters;
-            int foundNotInPlace;
-            int foundInPlace;
+            //int foundNotInPlace;
+            //int foundInPlace;
             string keepPlaying = "Y";
             bool won;
+            m_GamePlay = new GamePlay();
 
             while (keepPlaying == "Y")
             {
@@ -37,8 +38,9 @@ namespace PlayerInterface
                     break;
                 }
 
-                m_GamePlay = new GamePlay();
-                m_Board = new Board(m_MaxAmountOfTurns);
+                m_GamePlay.SetNewGame(m_MaxAmountOfTurns);
+                //m_GamePlay = new GamePlay();
+                //m_Board = new Board(m_MaxAmountOfTurns);
                 m_TurnNumber = 0;
                 updateVisualBoard();
                 m_TurnNumber++;
@@ -52,10 +54,11 @@ namespace PlayerInterface
                         break;
                     }
 
-                    foundNotInPlace = m_GamePlay.LettersNotInRightPlace(userPickedLetters.ToString());
+                    /*foundNotInPlace = m_GamePlay.LettersNotInRightPlace(userPickedLetters.ToString());
                     foundInPlace = m_GamePlay.LettersInRightPlace(userPickedLetters.ToString());
                     won = m_GamePlay.HasWon(userPickedLetters.ToString());
-                    updateBoard(userPickedLetters, foundInPlace, foundNotInPlace);
+                    updateBoard(userPickedLetters, foundInPlace, foundNotInPlace);*/
+                    won = IsWonAndNextMove(userPickedLetters.ToString());
                     updateVisualBoard();
                     m_TurnNumber++;
                 }
@@ -142,6 +145,11 @@ namespace PlayerInterface
                 userInput = Console.ReadLine();
                 invalidInput = false;
                 userInput = userInput.Replace(" ", string.Empty);
+                if(userInput[0] == 'Q')
+                {
+                    return null;
+                }
+
                 if(userInput.Length != 4)
                 {
                     Console.WriteLine("Please enter exactly 4 letters. Try again: ");
@@ -229,7 +237,8 @@ namespace PlayerInterface
             const string seperator = "|=========|=======|";
             const string limitWallSeperator = "|         |       |";
             StringBuilder visualBoard = new StringBuilder();
-            string[] currentBoard = m_Board.GameBoard;
+            //string[] currentBoard = m_Board.GameBoard;
+            string[] currentBoard = m_GamePlay.gameBoard;
             char[] boardPinsRow;
             string boardResultRow;
             int numOfSuccess;
@@ -287,9 +296,9 @@ namespace PlayerInterface
             Console.WriteLine(visualBoard);
         }
 
-        private static void updateBoard(StringBuilder userPickedLetters, int foundInPlace, int foundNotInPlace)
+        public static bool IsWonAndNextMove(string i_userGuess)
         {
-            m_Board.UpdateRow(userPickedLetters.ToString(), foundInPlace, foundNotInPlace);
+            return m_GamePlay.CheckWinningAndUpdateBoard(i_userGuess);
         }
     }
 }

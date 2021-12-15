@@ -8,12 +8,21 @@ namespace Logic
     {
         private readonly Random m_randomLetterPicker = new Random();
         private List<char> m_chosenLetters = new List<char>(4);
+        private Board m_gameBoard;
 
         public List<char> chosenLetters
         {
             get
             {
                 return m_chosenLetters;
+            }
+        }
+
+        public string[] gameBoard
+        {
+            get
+            {
+                return m_gameBoard.GameBoard;
             }
         }
 
@@ -31,7 +40,7 @@ namespace Logic
         private void setGame()
         {
             List<char> availableOption = new List<char> { 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H' };
-
+            m_chosenLetters.Clear();
             for (int i = 0; i < 4; i++)
             {
                 m_chosenLetters.Add(getRandomCharacter(availableOption, m_randomLetterPicker));
@@ -39,10 +48,10 @@ namespace Logic
             }
         }
 
-        public int LettersNotInRightPlace(string i_userGuesses)
+        private int lettersNotInRightPlace(string i_userGuesses)
         {
             int rightAttempts = 0;
-            int lettersFoundInRightPlace = LettersInRightPlace(i_userGuesses);
+            int lettersFoundInRightPlace = lettersInRightPlace(i_userGuesses);
 
             foreach(char letter in i_userGuesses)
             {
@@ -55,7 +64,7 @@ namespace Logic
             return rightAttempts - lettersFoundInRightPlace;
         }
 
-        public int LettersInRightPlace(string i_userGuesses)
+        private int lettersInRightPlace(string i_userGuesses)
         {
             int rightGuesses = 0;
 
@@ -70,17 +79,31 @@ namespace Logic
             return rightGuesses;
         }
 
-        public bool HasWon(string i_userGuesses)
+        private bool hasWon(string i_userGuesses)
         {
-            bool win = false;
+            /*bool win = false;
 
-            if(LettersInRightPlace(i_userGuesses) == 4)
+            if(lettersInRightPlace(i_userGuesses) == 4)
             {
                 win = true;    
             }
 
-            return win;
-            // return LettersInRightPlace(i_userGuesses) == 4;
+            return win;*/
+            return lettersInRightPlace(i_userGuesses) == 4;
+        }
+
+        public bool CheckWinningAndUpdateBoard(string i_userGuesses)
+        {
+            int lettersInPlace = lettersInRightPlace(i_userGuesses);
+            int lettersExistNotInPlace = lettersNotInRightPlace(i_userGuesses);
+            m_gameBoard.UpdateRow(i_userGuesses, lettersInPlace, lettersExistNotInPlace);
+            return hasWon(i_userGuesses);
+        }
+
+        public void SetNewGame(int i_numOfTurns)
+        {
+            m_gameBoard = new Board(i_numOfTurns);
+            setGame();
         }
 
         public bool BoardFull(string[,] i_GameBoard) // NOT IN USE
