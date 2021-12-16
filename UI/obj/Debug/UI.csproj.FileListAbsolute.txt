@@ -22,3 +22,14 @@ C:\Users\PcYarin\OneDrive\Documents\C#\מטלה 2\A22 Ex02 Yarin 316164060 Shell
 C:\Users\PcYarin\OneDrive\Documents\C#\מטלה 2\A22 Ex02 Yarin 316164060 Shelly 318685989\UI\obj\Debug\UI.csproj.CopyComplete
 C:\Users\PcYarin\OneDrive\Documents\C#\מטלה 2\A22 Ex02 Yarin 316164060 Shelly 318685989\UI\obj\Debug\A22 Ex02 Yarin 316164060 Shelly 318685989.exe
 C:\Users\PcYarin\OneDrive\Documents\C#\מטלה 2\A22 Ex02 Yarin 316164060 Shelly 318685989\UI\obj\Debug\A22 Ex02 Yarin 316164060 Shelly 318685989.pdb
+C:\Users\ynofe\OneDrive\Documents\C#\מטלה 2\A22 Ex02 Yarin 316164060 Shelly 318685989\UI\bin\Debug\A22 Ex02 Yarin 316164060 Shelly 318685989.exe.config
+C:\Users\ynofe\OneDrive\Documents\C#\מטלה 2\A22 Ex02 Yarin 316164060 Shelly 318685989\UI\bin\Debug\A22 Ex02 Yarin 316164060 Shelly 318685989.exe
+C:\Users\ynofe\OneDrive\Documents\C#\מטלה 2\A22 Ex02 Yarin 316164060 Shelly 318685989\UI\bin\Debug\A22 Ex02 Yarin 316164060 Shelly 318685989.pdb
+C:\Users\ynofe\OneDrive\Documents\C#\מטלה 2\A22 Ex02 Yarin 316164060 Shelly 318685989\UI\bin\Debug\Logic.dll
+C:\Users\ynofe\OneDrive\Documents\C#\מטלה 2\A22 Ex02 Yarin 316164060 Shelly 318685989\UI\bin\Debug\Logic.pdb
+C:\Users\ynofe\OneDrive\Documents\C#\מטלה 2\A22 Ex02 Yarin 316164060 Shelly 318685989\UI\bin\Debug\Logic.dll.config
+C:\Users\ynofe\OneDrive\Documents\C#\מטלה 2\A22 Ex02 Yarin 316164060 Shelly 318685989\UI\obj\Debug\UI.csprojAssemblyReference.cache
+C:\Users\ynofe\OneDrive\Documents\C#\מטלה 2\A22 Ex02 Yarin 316164060 Shelly 318685989\UI\obj\Debug\UI.csproj.CoreCompileInputs.cache
+C:\Users\ynofe\OneDrive\Documents\C#\מטלה 2\A22 Ex02 Yarin 316164060 Shelly 318685989\UI\obj\Debug\UI.csproj.CopyComplete
+C:\Users\ynofe\OneDrive\Documents\C#\מטלה 2\A22 Ex02 Yarin 316164060 Shelly 318685989\UI\obj\Debug\A22 Ex02 Yarin 316164060 Shelly 318685989.exe
+C:\Users\ynofe\OneDrive\Documents\C#\מטלה 2\A22 Ex02 Yarin 316164060 Shelly 318685989\UI\obj\Debug\A22 Ex02 Yarin 316164060 Shelly 318685989.pdb
