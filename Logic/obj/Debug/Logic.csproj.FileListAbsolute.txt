@@ -8,7 +8,6 @@ C:\Users\PcYarin\OneDrive\Documents\C#\מטלה 2\Logic\obj\Debug\Logic.pdb
 C:\Users\PcYarin\OneDrive\Documents\C#\מטלה 2\A22 Ex02 Yarin 316164060 Shelly 318685989\Logic\bin\Debug\Logic.dll.config
 C:\Users\PcYarin\OneDrive\Documents\C#\מטלה 2\A22 Ex02 Yarin 316164060 Shelly 318685989\Logic\bin\Debug\Logic.dll
 C:\Users\PcYarin\OneDrive\Documents\C#\מטלה 2\A22 Ex02 Yarin 316164060 Shelly 318685989\Logic\bin\Debug\Logic.pdb
-C:\Users\PcYarin\OneDrive\Documents\C#\מטלה 2\A22 Ex02 Yarin 316164060 Shelly 318685989\Logic\obj\Debug\Logic.csprojAssemblyReference.cache
 C:\Users\PcYarin\OneDrive\Documents\C#\מטלה 2\A22 Ex02 Yarin 316164060 Shelly 318685989\Logic\obj\Debug\Logic.csproj.CoreCompileInputs.cache
 C:\Users\PcYarin\OneDrive\Documents\C#\מטלה 2\A22 Ex02 Yarin 316164060 Shelly 318685989\Logic\obj\Debug\Logic.dll
 C:\Users\PcYarin\OneDrive\Documents\C#\מטלה 2\A22 Ex02 Yarin 316164060 Shelly 318685989\Logic\obj\Debug\Logic.pdb
@@ -19,3 +18,4 @@ C:\Users\ynofe\OneDrive\Documents\C#\מטלה 2\A22 Ex02 Yarin 316164060 Shelly 
 C:\Users\ynofe\OneDrive\Documents\C#\מטלה 2\A22 Ex02 Yarin 316164060 Shelly 318685989\Logic\bin\Debug\Logic.dll.config
 C:\Users\ynofe\OneDrive\Documents\C#\מטלה 2\A22 Ex02 Yarin 316164060 Shelly 318685989\Logic\bin\Debug\Logic.dll
 C:\Users\ynofe\OneDrive\Documents\C#\מטלה 2\A22 Ex02 Yarin 316164060 Shelly 318685989\Logic\bin\Debug\Logic.pdb
+C:\Users\PcYarin\OneDrive\Documents\C#\מטלה 2\A22 Ex02 Yarin 316164060 Shelly 318685989\Logic\obj\Debug\Logic.csprojAssemblyReference.cache

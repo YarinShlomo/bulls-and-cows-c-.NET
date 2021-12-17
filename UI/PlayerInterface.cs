@@ -4,70 +4,37 @@ using System.Collections.Generic;
 using Ex02.ConsoleUtils;
 using Logic;
 
-namespace PlayerInterface
+namespace UI
 {
     public class PlayerInterface
     {
+        private const string k_SeparatorUi = "|=========|=======|";
+        private const string k_LimitWallSeparatorUi = "|         |       |";
         private static GamePlay s_GamePlay;
         private static int s_TurnNumber;
         private static int s_MaxAmountOfTurns;
-
-        public static void Main()
-        {
-            RunGame();
-        }
 
         public static void RunGame()
         {
             string keepPlaying = "Y";
             s_GamePlay = new GamePlay();
+            bool isWon;
 
             while (keepPlaying == "Y")
             {
-                bool won = false;
+                isWon = false;
 
-                Screen.Clear();
-                s_MaxAmountOfTurns = pickNumOfTurns();
-                if (s_MaxAmountOfTurns == -1)  // user pressed Q.  
-                {
-                    userQuits();
-                    break;
-                }
-
-                s_GamePlay.SetNewGame();
-                s_TurnNumber = 0;
-                updateVisualBoard();
-                while (s_TurnNumber < s_MaxAmountOfTurns && !won)
+                initiateGameAndUi();
+                while (s_TurnNumber < s_MaxAmountOfTurns && !isWon)
                 {
                     string userPickedLetters = getUserGuesses();
 
-                    if(userPickedLetters == null) // user pressed Q.
-                    {
-                        userQuits();
-                        keepPlaying = "N";
-                        break;
-                    }
-
-                    won = isWonAndNextMove(userPickedLetters);
+                    isWon = isWonAndNextMove(userPickedLetters);
                     s_TurnNumber++;
                     updateVisualBoard();
                 }
 
-                if(keepPlaying == "N")
-                {
-                    break;
-                }
-
-                if (won)
-                {
-                    string winningMsg = string.Format("You guessed after {0} steps!", s_TurnNumber);
-
-                    Console.WriteLine(winningMsg);
-                }
-                else
-                {
-                    Console.WriteLine("No more guesses allowed. You Lost.");
-                }
+                printWinOrLossMessage(isWon);
 
                 Console.WriteLine("Would you like to start a new game? <Y/N>");
                 do
@@ -84,6 +51,16 @@ namespace PlayerInterface
             Console.WriteLine("bye bye! :)");
             Console.WriteLine("press enter to quit");
             Console.ReadLine();
+            Environment.Exit(0);
+        }
+
+        private static void initiateGameAndUi()
+        {
+            Screen.Clear();
+            s_MaxAmountOfTurns = pickNumOfTurns();
+            s_GamePlay.SetNewGame(s_MaxAmountOfTurns);
+            s_TurnNumber = 0;
+            updateVisualBoard();
         }
 
         private static int pickNumOfTurns()
@@ -110,10 +87,9 @@ namespace PlayerInterface
                 }
                 else
                 {
-                    if(userInput == "Q") // user wants to quit
+                    if(userInput == "Q")
                     {
-                        numOfTurns = -1;
-                        break;
+                        userQuits();
                     }
 
                     Console.WriteLine("Invalid Input! did not enter a number");
@@ -138,7 +114,7 @@ namespace PlayerInterface
                 userInput = userInput.Replace(" ", string.Empty);
                 if(userInput[0] == 'Q')
                 {
-                    return null;
+                    userQuits();
                 }
 
                 if(userInput.Length != 4)
@@ -223,30 +199,42 @@ namespace PlayerInterface
         private static void updateVisualBoard()
         {
             string headLine = string.Format("Current board status:{0}", Environment.NewLine);
-            const string k_Separator = "|=========|=======|";
-            const string k_LimitWallSeparator = "|         |       |";
             StringBuilder visualBoard = new StringBuilder();
-            List<Guess> currentBoard = s_GamePlay.GameBoard;
 
             visualBoard.AppendLine("|Pins:    |Result:|");
-            visualBoard.AppendLine(k_Separator);
-            if(s_TurnNumber == s_MaxAmountOfTurns)
-            {
-                char[] computerChoice = s_GamePlay.ChosenLetters.ToArray(); 
+            visualBoard.AppendLine(k_SeparatorUi);
+            appendHiddenOrShownAnswerLine(visualBoard);
+            appendUsedPinsAndResultLines(visualBoard);
+            appendBlankPinsAndResultLines(visualBoard);
+            Screen.Clear();
+            Console.WriteLine(headLine);
+            Console.WriteLine(visualBoard);
+        }
 
-                visualBoard.AppendFormat("| {0} {1} {2} {3} |       |{4}", 
+        private static void appendHiddenOrShownAnswerLine(StringBuilder io_VisualBoard)
+        {
+            if (s_TurnNumber == s_MaxAmountOfTurns)
+            {
+                char[] computerChoice = s_GamePlay.ChosenLetters.ToArray();
+
+                io_VisualBoard.AppendFormat("| {0} {1} {2} {3} |       |{4}",
                     computerChoice[0],
                     computerChoice[1],
-                    computerChoice[2], 
+                    computerChoice[2],
                     computerChoice[3],
                     Environment.NewLine);
             }
             else
             {
-                visualBoard.AppendLine("| # # # # |       |");
+                io_VisualBoard.AppendLine("| # # # # |       |");
             }
 
-            visualBoard.AppendLine(k_Separator);
+            io_VisualBoard.AppendLine(k_SeparatorUi);
+        }
+
+        private static void appendUsedPinsAndResultLines(StringBuilder io_VisualBoard)
+        {
+            List<Guess> currentBoard = s_GamePlay.GameBoard;
 
             for (int i = 0; i < s_TurnNumber; i++)
             {
@@ -255,31 +243,44 @@ namespace PlayerInterface
                 int numOfSuccess = currentGuess.NumOfRightPositionLetters;
                 int numOfTries = currentGuess.NumOfIncorrectPositionLetters;
 
-                visualBoard.AppendFormat("| {0} {1} {2} {3} |", boardPinsRow[0], boardPinsRow[1], boardPinsRow[2], boardPinsRow[3]);
-                visualBoard.Insert(visualBoard.Length, "V ", numOfSuccess);
-                visualBoard.Insert(visualBoard.Length, "X ", numOfTries);
-                if(numOfSuccess + numOfTries == 4)
+                io_VisualBoard.AppendFormat("| {0} {1} {2} {3} |", boardPinsRow[0], boardPinsRow[1], boardPinsRow[2], boardPinsRow[3]);
+                io_VisualBoard.Insert(io_VisualBoard.Length, "V ", numOfSuccess);
+                io_VisualBoard.Insert(io_VisualBoard.Length, "X ", numOfTries);
+                if (numOfSuccess + numOfTries == 4)
                 {
-                    visualBoard.Remove(visualBoard.Length - 1, 1);
+                    io_VisualBoard.Remove(io_VisualBoard.Length - 1, 1);
                 }
                 else
                 {
-                    visualBoard.Append(' ', 7 - (2 * (numOfSuccess + numOfTries)));
+                    io_VisualBoard.Append(' ', 7 - (2 * (numOfSuccess + numOfTries)));
                 }
 
-                visualBoard.AppendFormat("|" + Environment.NewLine);
-                visualBoard.AppendLine(k_Separator);
+                io_VisualBoard.AppendFormat("|" + Environment.NewLine);
+                io_VisualBoard.AppendLine(k_SeparatorUi);
             }
+        }
 
+        private static void appendBlankPinsAndResultLines(StringBuilder io_VisualBoard)
+        {
             for (int i = s_TurnNumber; i < s_MaxAmountOfTurns; i++)
             {
-                visualBoard.AppendLine(k_LimitWallSeparator);
-                visualBoard.AppendLine(k_Separator);
+                io_VisualBoard.AppendLine(k_LimitWallSeparatorUi);
+                io_VisualBoard.AppendLine(k_SeparatorUi);
             }
+        }
 
-            Screen.Clear();
-            Console.WriteLine(headLine);
-            Console.WriteLine(visualBoard);
+        private static void printWinOrLossMessage(bool i_isWon)
+        {
+            if(i_isWon)
+            {
+                string winningMsg = string.Format("You guessed after {0} steps!", s_TurnNumber);
+
+                Console.WriteLine(winningMsg);
+            }
+            else
+            {
+                Console.WriteLine("No more guesses allowed. You Lost.");
+            }
         }
 
         private static bool isWonAndNextMove(string io_UserGuess)

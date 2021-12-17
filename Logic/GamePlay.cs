@@ -6,15 +6,15 @@ namespace Logic
 {
     public class GamePlay
     {
-        private readonly Random r_RandomLetterPicker = new Random();
-        private List<char> m_ChosenLetters = new List<char>(4);
-        private Board m_GameBoard;
+        private readonly Random r_RandomLetterPicker;
+        private readonly List<char> r_ChosenLetters;
+        private readonly Board r_GameBoard;
 
         public List<char> ChosenLetters
         {
             get
             {
-                return m_ChosenLetters;
+                return r_ChosenLetters;
             }
         }
 
@@ -22,26 +22,28 @@ namespace Logic
         {
             get
             {
-                return m_GameBoard.GameBoard;
+                return r_GameBoard.GameBoard;
             }
         }
 
         public GamePlay()
         {
-            setGame();
+            r_RandomLetterPicker = new Random();
+            r_ChosenLetters = new List<char>(4);
+            r_GameBoard = new Board();
         }
 
         public bool CheckWinningAndUpdateBoard(string io_UserGuesses)
         {
             int lettersInPlace = lettersInRightPlace(io_UserGuesses);
             int lettersExistNotInPlace = lettersNotInRightPlace(io_UserGuesses);
-            m_GameBoard.UpdateRow(io_UserGuesses, lettersInPlace, lettersExistNotInPlace);
+            r_GameBoard.UpdateRow(io_UserGuesses, lettersInPlace, lettersExistNotInPlace);
             return hasWon(io_UserGuesses);
         }
 
-        public void SetNewGame()
+        public void SetNewGame(int io_NewSize)
         {
-            m_GameBoard = new Board();
+            r_GameBoard.ClearBoardAndResize(io_NewSize);
             setGame();
         }
 
@@ -54,11 +56,11 @@ namespace Logic
         private void setGame()
         {
             List<char> availableOption = new List<char> { 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H' };
-            m_ChosenLetters.Clear();
+            r_ChosenLetters.Clear();
             for (int i = 0; i < 4; i++)
             {
-                m_ChosenLetters.Add(getRandomCharacter(availableOption, r_RandomLetterPicker));
-                availableOption.Remove(m_ChosenLetters[i]);
+                r_ChosenLetters.Add(getRandomCharacter(availableOption, r_RandomLetterPicker));
+                availableOption.Remove(r_ChosenLetters[i]);
             }
         }
 
@@ -69,7 +71,7 @@ namespace Logic
 
             foreach(char letter in io_UserGuesses)
             {
-                if(m_ChosenLetters.Contains(letter))
+                if(r_ChosenLetters.Contains(letter))
                 {
                     rightAttempts++;
                 }
@@ -84,7 +86,7 @@ namespace Logic
 
             for(int i = 0; i < 4; i++)
             {
-                if(i_UserGuesses[i] == m_ChosenLetters[i])
+                if(i_UserGuesses[i] == r_ChosenLetters[i])
                 {
                     rightGuesses++;
                 }

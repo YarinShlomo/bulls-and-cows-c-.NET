@@ -7,21 +7,31 @@ namespace Logic
 {
     public class Board
     {
+
+        private List<Guess> m_GameBoard;
+
         public Board()
         {
-            GameBoard = new List<Guess>(10);
+            m_GameBoard = new List<Guess>();
         }
 
-        public List<Guess> GameBoard { get; }
+        public List<Guess> GameBoard
+        {
+            get
+            {
+                return m_GameBoard;
+            }
+        }
 
         public void UpdateRow(string io_UserInput, int io_Successes, int io_Tries)
         {
-            GameBoard.Add(new Guess(io_UserInput, io_Tries, io_Successes));
+            m_GameBoard.Add(new Guess(io_UserInput, io_Tries, io_Successes));
         }
 
-        public void ClearBoard() // Currently not in use.
+        public void ClearBoardAndResize(int i_NewSize)
         {
-            GameBoard.Clear();
+            m_GameBoard.Clear();
+            m_GameBoard.Capacity = i_NewSize;
         }
     }
 }
